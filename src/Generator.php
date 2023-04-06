@@ -21,11 +21,7 @@ class Generator
             File::makeDirectory($docDir);
             $excludeDirs = config('swagger-lume.paths.excludes');
 
-            if (version_compare(config('swagger-lume.swagger_version'), '3.0', '>=')) {
-                $swagger = \OpenApi\scan($appDir, ['exclude' => $excludeDirs]);
-            } else {
-                $swagger = \Swagger\scan($appDir, ['exclude' => $excludeDirs]);
-            }
+            $swagger = \OpenApi\Generator::scan([$appDir]);
 
             if (config('swagger-lume.paths.base') !== null) {
                 $swagger->basePath = config('swagger-lume.paths.base');
